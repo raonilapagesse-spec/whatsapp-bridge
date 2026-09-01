@@ -240,15 +240,16 @@ async function startSession(ref, { externalId, phone, webhookUrl, isNewSession =
   return entry;
 }
 
+// ROTA PÚBLICA SEM AUTENTICAÇÃO - DEVE ESTAR ANTES DO MIDDLEWARE
+app.get("/health", (_req, res) => res.json({ ok: true, version: 2, contract: "v2", sessions: sessions.size }));
+
+// MIDDLEWARE DE AUTENTICAÇÃO PARA TODAS AS OUTRAS ROTAS
 app.use((req, res, next) => {
-  if (req.path === "/health") return next();
   if (req.headers.authorization !== `Bearer ${TOKEN}`) {
     return res.status(401).json({ error: "unauthorized" });
   }
   next();
 });
-
-app.get("/health", (_req, res) => res.json({ ok: true, version: 2, contract: "v2", sessions: sessions.size }));
 
 app.post("/sessions", async (req, res) => {
   if (stopped) return res.status(503).json({ error: "server stopping" });
