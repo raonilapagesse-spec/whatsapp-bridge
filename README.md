@@ -1,6 +1,7 @@
 # SquadIA WhatsApp Bridge
 
 API de integração com WhatsApp usando Baileys para pareamento e gerenciamento de sessões.
+Contrato atual da API: `v3`.
 
 ## 🚀 Features
 
