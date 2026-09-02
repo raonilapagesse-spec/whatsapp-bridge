@@ -241,7 +241,7 @@ async function startSession(ref, { externalId, phone, webhookUrl, isNewSession =
 }
 
 // ROTA PÚBLICA SEM AUTENTICAÇÃO - DEVE ESTAR ANTES DO MIDDLEWARE
-app.get("/health", (_req, res) => res.json({ ok: true, version: 2, contract: "v2", sessions: sessions.size }));
+app.get("/health", (_req, res) => res.json({ ok: true, version: 3, contract: "v3", sessions: sessions.size }));
 
 // MIDDLEWARE DE AUTENTICAÇÃO PARA TODAS AS OUTRAS ROTAS
 app.use((req, res, next) => {
@@ -392,5 +392,5 @@ if (!stopped) {
   }
 }
 
-console.log("🚀 SquadIA WhatsApp bridge - Contrato v2");
+console.log("🚀 SquadIA WhatsApp bridge - Contrato v3");
 app.listen(PORT, () => console.log(`✓ Bridge listening on :${PORT}`));
